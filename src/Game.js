@@ -39,8 +39,8 @@ class Game extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        squares: shuffle([0,1,2,3,4,5,6,7,8]),
-        stepNumber: 0
+        squares: shuffle(s),
+        steps: 0
       };
   }
 

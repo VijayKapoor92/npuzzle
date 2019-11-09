@@ -3,14 +3,20 @@ import "./index.css";
 
 import Board from "./components/Board";
 
-function shuffle(array) {
-    var m = array.length, t, i;
-
-    // While there remain elements to shuffle…
-    while (m) {
-
-        // Pick a remaining element…
-        i = Math.floor(Math.random() * m--);
+function shuffle(squares) {
+    const m = squares.length;
+    let t;
+    for (let i = 0; i < m; i++) {
+      let n = squares[i].length, k = Math.floor(Math.random() * i), l;
+      for (let j = 0; j < n; j++) {
+        l = Math.floor(Math.random() * j);
+        t = squares[i][j];
+        squares[i][j] = squares[k][l];
+        squares[k][l] = t;
+      }
+    }
+    return squares;
+}
 
         // And swap it with the current element.
         t = array[m];
@@ -63,6 +69,7 @@ class Game extends React.Component {
 
   render() {
       const {squares} = this.state;
+
       return (
           <div className="game">
             <div className="game-board">

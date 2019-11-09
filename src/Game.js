@@ -44,36 +44,27 @@ class Game extends React.Component {
       };
   }
 
-  handleClickSquare = (e, value) => {
+
+
+  handleClickSquare = (value, position) => {
       if (value === 0) {
-        e.preventDefault();
-        return false;
+        return;
       }
 
       let squares = this.state.squares;
+      const zero = getPositionZero(squares);
 
-      /*for (let i = 0; i < squares.length/3; i++) {
-          for (let j =  0; j < squares.length/3; j++) {
-              console.log(`${i} >>>> ${j}`)
-          }
-      }*/
+      if ((position.i === zero.i && Math.abs(position.j - zero.j) === 1)
+      || (position.j === zero.j && Math.abs(position.i - zero.i) === 1)) {
+        squares[position.i][position.j] = 0;
+        squares[zero.i][zero.j] = value;
 
-      //0: => 1 ou 3
-      //1: => 0 ou 2 ou 4
-      //2
-
-      squares.map((a, i) => {
-          if (a === 0) {
-            squares[i] = value;
-          }
-
-          if (a === value) {
-            squares[i] = 0;
-          }
-      });
-
-      this.setState({squares, stepNumber: this.state.stepNumber++});
-  }
+        this.setState(state => ({
+          squares,
+          steps: state.steps++
+        }));
+      }
+  };
 
   render() {
       const {squares} = this.state;

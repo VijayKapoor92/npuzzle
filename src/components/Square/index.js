@@ -1,9 +1,9 @@
 import React from "react";
 
 function Square(props) {
-    const {value, onClick} = props;
+    const {value, position, onClick} = props;
     return (
-        <button className="square" onClick={e => onClick(e, value)}>
+        <button className="square" onClick={() => onClick(value, position)}>
             {value !== 0 && value}
         </button>
     );

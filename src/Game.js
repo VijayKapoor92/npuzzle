@@ -18,13 +18,15 @@ function shuffle(squares) {
     return squares;
 }
 
-        // And swap it with the current element.
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;   
+function getPositionZero(squares) {
+  let position = {}, l = squares.length;
+  for (let i = 0; i < l; i++)
+    for (let j = 0; j < l; j++) {
+      if (squares[i][j] === 0)
+        position = {i, j};
     }
 
-    return array;
+  return position;
 }
 
 class Game extends React.Component {

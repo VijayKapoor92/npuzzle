@@ -1,10 +1,13 @@
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
+    font-size: 14px;
+    font-family: 'Luckiest Guy', cursive;
+    margin: 0;
+    padding: 0;
 }
 
 ol, ul {
     padding-left: 30px;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .board-row:after {
@@ -15,21 +18,32 @@ ol, ul {
 
 .status {
     margin-bottom: 10px;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .square {
+    font-family: 'Luckiest Guy', cursive;
     background: #fff;
-    border: 1px solid #999;
+    border: 1px solid #000000;
+    border-radius: 5px;
     float: left;
     font-size: 24px;
     font-weight: bold;
     line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
+    width: calc(180px/3);
+    height: calc(180px/3);
     padding: 0;
     text-align: center;
-    width: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.square:empty {
+    background-color: #BDBDBD;
+    border-radius: 0;
+    border: none;
+    cursor: not-allowed;
 }
 
 .square:focus {
@@ -43,8 +57,72 @@ ol, ul {
 .game {
     display: flex;
     flex-direction: row;
+    border: 5px solid brown;
+    width: 180px;
+    height: 180px;
+    background-color: #BDBDBD;
 }
 
 .game-info {
     margin-left: 20px;
+    font-family: 'Luckiest Guy', cursive;
+}
+
+.first-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.first-page__title {
+    margin-bottom: 10px;
+    font-size: 46px;
+}
+.first-page__subtitle {
+    margin-bottom: 200px;
+    font-size: 18px;
+}
+.first-page__action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+button {
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.first-page__action-container > button:first-child {
+    margin-bottom: 50px;
+    font-size: 30px;
+}
+.first-page__action-container > button:last-child {
+    font-size: 20px;
+    width: 50%;
+}
+.first-page__action-container button:last-child > svg {
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite
+}
+
+.game-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

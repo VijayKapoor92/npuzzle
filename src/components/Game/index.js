@@ -1,12 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "../../index.css";
 
 import Board from "../Board";
+
 class Game extends React.Component {
   render() {
-      const {onExit, onSaveAndExit, onReset, onClickSquare, squares, steps} = this.props;
+    const {onExit, winner, onSaveAndExit, onReset, onClickSquare, squares, steps} = this.props;
 
-      return (
+    return (
+      <Fragment>
         <div className="game-window">
           <div style={{textAlign: "center", marginBottom: 10, fontSize: 18}}>
             <div style={{marginBottom: 5}}>Passos</div>
@@ -15,18 +17,22 @@ class Game extends React.Component {
           <div className="game">
             <div className="game-board">
               <Board
+                winner={winner}
                 squares={squares}
                 onClick={onClickSquare}
               />
             </div>
           </div>
           <div style={{marginTop: 10}}>
-            <button onClick={() => onReset()}>Reiniciar</button>
+            {!winner && (
+              <button onClick={() => onReset()}>Reiniciar</button>
+            )}
             {/*<button onClick={() => onSaveAndExit(squares)}>Salvar e Sair</button>*/}
             <button onClick={() => onExit()}>Sair</button>
           </div>
         </div>
-      );
+      </Fragment>
+    );
   }
 }
 

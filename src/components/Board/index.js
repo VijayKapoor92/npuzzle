@@ -3,7 +3,11 @@ import Square from "../Square";
  
 class Board extends React.Component {
   render() {
-    const {squares, onClick} = this.props;
+    const {squares, winner, onClick} = this.props;
+    let fn_click = onClick;
+    if (winner)
+      fn_click = ()=>false;
+
     return (
       <div>
         {squares.map((square, index) => (
@@ -13,7 +17,7 @@ class Board extends React.Component {
                 key={i}
                 value={squares[index][i]}
                 position={{i: index, j: i}}
-                onClick={onClick}
+                onClick={fn_click}
               />
             ))}
           </div>

@@ -95,15 +95,19 @@ button {
     padding: 5px 10px;
     cursor: pointer;
 }
-.first-page__action-container > button:first-child {
+button:focus {
+    outline: none;
+}
+.btn-start {
     margin-bottom: 50px;
     font-size: 30px;
 }
-.first-page__action-container > button:last-child {
+
+.btn-config {
     font-size: 20px;
     width: 50%;
 }
-.first-page__action-container button:last-child > svg {
+.btn-config > svg {
     animation-name: spin;
     animation-duration: 2s;
     animation-timing-function: linear;
@@ -117,6 +121,54 @@ button {
     align-items: center;
     height: 100vh;
 }
+
+.winner-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.winner-backdrop.show {
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .1);
+}
+.winner-container {
+    position: relative;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px 6px rgba(0, 0, 0, .25);
+    width: 250px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    transition: all .3s ease-in-out;
+    transform: scale(0);
+}
+.winner-backdrop.show > .winner-container {
+    transform: scale(1);
+}
+.winner-container__dismiss {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    font-size: 32px;
+    cursor: pointer;
+}
+.winner-container__title {
+    font-size: 24px;
+}
+
 
 @keyframes spin {
     from {

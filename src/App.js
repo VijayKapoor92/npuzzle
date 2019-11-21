@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from "react";
 import Game from "./components/Game";
+import WinnerContainer from "./components/WinnerContainer";
+
 import SettingsIcon from "react-icons/lib/fa/cog";
 import CloseIcon from "react-icons/lib/fa/close";
 import TrophyIcon from "react-icons/lib/fa/trophy";
+
 import { PUZZLE_MODE_EASY } from "./utils/constants";
 import { Puzzles, Answers } from "./utils/puzzles";
 import {getPositionZero, shuffle} from "./utils";
@@ -50,18 +53,11 @@ class App extends Component {
     }));
   };
 
-  handleClickSquare = (value, position) => {
-    let squares = this.state.squares;
-    const zero = getPositionZero(squares);
-    const isSameRow = (position.i === zero.i && Math.abs(position.j - zero.j) === 1);
-    const isSameColumn = (position.j === zero.j && Math.abs(position.i - zero.i) === 1);
+  validateColumnAndRow = (position, zero) =>
+    (position.i === zero.i && Math.abs(position.j - zero.j) === 1)
+    || (position.j === zero.j && Math.abs(position.i - zero.i) === 1);
 
-    if (value === 0 || !(isSameColumn || isSameRow)) {
-      return;
-    }
-    squares[position.i][position.j] = 0;
-    squares[zero.i][zero.j] = value;
-
+  validateWinner = squares => {
     let
       counter = 0,
       winner = false;
@@ -77,6 +73,21 @@ class App extends Component {
       counter = 0;
     if (counter === le)
       winner = true;
+
+    return winner;
+  };
+
+  handleClickSquare = (value, position) => {
+    let squares = this.state.squares;
+    const zero = getPositionZero(squares);
+
+    if (value === 0 || !(this.validateColumnAndRow(position, zero))) {
+      return;
+    }
+    squares[position.i][position.j] = 0;
+    squares[zero.i][zero.j] = value;
+
+    const winner = this.validateWinner(squares);
 
     this.setState(state => ({
       ...state,
@@ -128,20 +139,11 @@ class App extends Component {
     return (
       <Fragment>
         {isConfigOpen && this.renderConfig()}
-        <div className={`winner-backdrop ${openWinner ? 'show' : ''}`}>
-          <div className="winner-container">
-            <div className="winner-container__dismiss" onClick={() => this.handleCloseWinner()}>
-              <CloseIcon/>
-            </div>
-            <div className="winner-container__title">Parabéns!</div>
-            <div>
-              <TrophyIcon style={{fontSize: 64}}/>
-            </div>
-            <div className="winner-container__body">
-              <div style={{fontSize: 24, textAlign: "center", marginTop: 20}}>{steps}</div>
-            </div>
-          </div>
-        </div>
+        <WinnerContainer
+          open={openWinner}
+          steps={steps}
+          onClose={this.handleCloseWinner}
+        />
         {status
           ? <Game
               winner={winner}

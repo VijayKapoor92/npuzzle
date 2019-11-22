@@ -5,7 +5,7 @@ import Board from "../Board";
 
 class Game extends React.Component {
   render() {
-    const {onExit, winner, onSaveAndExit, onReset, onClickSquare, squares, steps} = this.props;
+    const {onExit, winner, onSaveAndExit, onReset, onClickSquare, squares, steps, game} = this.props;
 
     return (
       <Fragment>

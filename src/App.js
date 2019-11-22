@@ -188,18 +188,20 @@ class App extends Component {
           steps={steps}
           onClose={this.handleCloseWinner}
         />
-        {status
-          ? <Game
-              winner={winner}
-              squares={squares}
-              steps={steps}
-              onExit={this.handleExit}
-              onSaveAndExit={this.handleSaveAndExit}
-              onReset={this.handleReset}
-              onClickSquare={this.handleClickSquare}
-            />
-          : this.renderFirstPage()
-        }
+        {status === "start" ? (
+          <Game
+            game={game}
+            winner={winner}
+            squares={squares}
+            steps={steps}
+            onExit={this.handleExit}
+            onSaveAndExit={this.handleSaveAndExit}
+            onReset={this.handleReset}
+            onClickSquare={this.handleClickSquare}
+          />
+        ) : (
+          this.renderFirstPage(squares, status)
+        )}
       </Fragment>
     );
   }

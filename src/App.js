@@ -102,7 +102,7 @@ class App extends Component {
   };
 
   handleClickSquare = (value, position) => {
-    let squares = this.state.squares;
+    let squares = this.state.game.squares;
     const zero = getPositionZero(squares);
 
     if (value === 0 || !(this.validateColumnAndRow(position, zero))) {
@@ -115,12 +115,24 @@ class App extends Component {
 
     this.setState(state => ({
       ...state,
-      squares,
-      steps: state.steps + 1,
+      game: {
+        ...state.game,
+        squares,
+        steps: state.game.steps + 1,
+      },
       winner,
       openWinner: winner
     }));
   };
+
+  handleContinue = () =>
+    this.setState(state => ({
+      ...state,
+      game: {
+        ...state.game,
+        status: "start"
+      }
+    }));
 
   handleCloseWinner = () =>
     this.setState({openWinner: false});

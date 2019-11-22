@@ -145,7 +145,14 @@ class App extends Component {
       <div className="first-page__title">N-PUZZLE</div>
       <div className="first-page__subtitle">Venha se divertir</div>
       <div className="first-page__action-container">
-        <button className="btn-start" onClick={this.handleStart}>Jogar</button>
+        {status === "saved" ? (
+          <Fragment>
+            <button className="btn-start" onClick={() => this.handleContinue(squares)}>Continuar jogo salvo</button>
+            <button className="btn-start" onClick={() => this.handleStart(squares)}>Novo jogo</button>
+          </Fragment>
+        ) : (
+          <button className="btn-start" onClick={() => this.handleStart(squares)}>Novo jogo</button>
+        )}
         {/*<button className="btn-config" onClick={this.handleOpenConfig}>
           <SettingsIcon/>
         </button>*/}

@@ -15,9 +15,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      game: {
+        id: 0,
+        squares: [],
+        steps: 0,
+        status: "stop"
+      },
       squares: shuffle(Puzzles[PUZZLE_MODE_EASY]),
       steps: 0,
-      status: s,
+      status: "stop",
       isConfigOpen: false,
       isWinner: false,
       openWinner: false

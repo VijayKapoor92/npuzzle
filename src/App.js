@@ -46,18 +46,28 @@ class App extends Component {
   }
 
   handleStart = () => {
-    localStorage.setItem("game", JSON.stringify({"status": true, puzzle: []}));
-    this.setState({status: true});
+    const squares = shuffle(Puzzles[PUZZLE_MODE_EASY]);
+    const id = Storage.getLastId() + 1;
+    console.log(id);
+    Storage.insert({id, status: "start", puzzle: squares, steps: 0});
+    this.setState({game: {status: "start", squares: squares, steps: 0, id}});
   };
 
   handleExit = () => {
-    localStorage.setItem("game", JSON.stringify({"status": false, puzzle: []}));
-    this.setState({status: false, winner: false, steps: 0});
+    Storage.delete(Storage.getLastId());
+    this.setState({
+      game: {
+        status: "stop",
+        steps: 0,
+        puzzle: []
+      },
+      winner: false,
+    });
   };
 
-  handleSaveAndExit = puzzle => {
-    localStorage.setItem("game", JSON.stringify({"status": false, puzzle}));
-    this.setState({status: false});
+  handleSaveAndExit = (game) => {
+    Storage.update({id: game.id, status: "saved", puzzle: game.squares, steps: game.steps});
+    this.setState({game: {status: "saved", steps: game.steps, squares: game.squares,}});
   };
 
   handleReset = () => {

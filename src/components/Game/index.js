@@ -27,7 +27,7 @@ class Game extends React.Component {
             {!winner && (
               <button onClick={() => onReset()}>Reiniciar</button>
             )}
-            {/*<button onClick={() => onSaveAndExit(squares)}>Salvar e Sair</button>*/}
+            <button onClick={() => onSaveAndExit(game)}>Salvar e Sair</button>
             <button onClick={() => onExit()}>Sair</button>
           </div>
         </div>

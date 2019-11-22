@@ -9,14 +9,7 @@ import TrophyIcon from "react-icons/lib/fa/trophy";
 import { PUZZLE_MODE_EASY } from "./utils/constants";
 import { Puzzles, Answers } from "./utils/puzzles";
 import {getPositionZero, shuffle} from "./utils";
-
-let s = false;
-
-if (localStorage.getItem("game").length) {
-  let json = JSON.parse(localStorage.getItem("game"));
-  if (json.status)
-    s = true;
-}
+import { Storage } from "./dao";
 
 class App extends Component {
   constructor(props) {

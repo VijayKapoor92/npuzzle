@@ -173,7 +173,8 @@ class App extends Component {
     </div>;
 
   render() {
-    const {status, squares, steps, isConfigOpen, winner, openWinner} = this.state;
+    const {game, isConfigOpen, winner, openWinner} = this.state;
+    const { status, squares, steps } = game;
 
     //todo: logica para salvar o jogo e sair.
     //todo: criar as views (IntroView e GameView).

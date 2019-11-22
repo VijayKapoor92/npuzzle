@@ -30,6 +30,21 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    Storage.connect();
+    const puzzle = Storage.get();
+    if (puzzle.length && puzzle.filter(p => p.status === "saved").length)
+      this.setState(state => ({
+        ...state,
+        game: {
+          squares: puzzle.filter(p => p.status === "saved").map(p => p.puzzle)[0],
+          status: puzzle.filter(p => p.status === "saved").map(p => p.status)[0],
+          steps: puzzle.filter(p => p.status === "saved").map(p => p.steps)[0],
+          id: puzzle.filter(p => p.status === "saved").map(p => p.id)[0]
+        }
+      }));
+  }
+
   handleStart = () => {
     localStorage.setItem("game", JSON.stringify({"status": true, puzzle: []}));
     this.setState({status: true});

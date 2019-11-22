@@ -140,7 +140,7 @@ class App extends Component {
   handleOpenConfig = () =>
     this.setState({isConfigOpen: true});
 
-  renderFirstPage = () =>
+  renderFirstPage = (squares, status) =>
     <div className="first-page">
       <div className="first-page__title">N-PUZZLE</div>
       <div className="first-page__subtitle">Venha se divertir</div>

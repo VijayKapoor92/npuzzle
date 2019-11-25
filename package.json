@@ -2,7 +2,9 @@
   "name": "npuzzle",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://VijayKapoor92.github.io/npuzzles",
   "dependencies": {
+    "gh-pages": "^2.1.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-icons": "^2.2.7",

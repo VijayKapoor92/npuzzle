@@ -5,11 +5,6 @@ body {
     padding: 0;
 }
 
-ol, ul {
-    padding-left: 30px;
-    font-family: 'Luckiest Guy', cursive;
-}
-
 .board-row:after {
     clear: both;
     content: "";
@@ -122,53 +117,26 @@ button:focus {
     height: 100vh;
 }
 
-.winner-backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.select-mode {
+    border: 1px solid black;
+    border-radius: 3px;
+    font-family: 'Luckiest Guy', cursive;
+    width: 50px;
+    height: 20px;
+    font-size: 14px;
+    display: block;
+    line-height: 1;
+    margin: 0;
+    padding-left: 3px;
+    padding-top: 4px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("https://icon-library.net/images/caret-icon/caret-icon-8.jpg");
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: right;
 }
-.winner-backdrop.show {
-    z-index: 10;
-    background-color: rgba(0, 0, 0, .1);
-}
-.winner-container {
-    position: relative;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px 6px rgba(0, 0, 0, .25);
-    width: 250px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    transition: all .3s ease-in-out;
-    transform: scale(0);
-}
-.winner-backdrop.show > .winner-container {
-    transform: scale(1);
-}
-.winner-container__dismiss {
-    position: absolute;
-    top: -16px;
-    right: -16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    font-size: 32px;
-    cursor: pointer;
-}
-.winner-container__title {
-    font-size: 24px;
-}
-
 
 @keyframes spin {
     from {

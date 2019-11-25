@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Game from "./components/Game";
+import GameView from "./views/GameView";
 import ModalWinner from "./components/ModalWinner";
 import IntroView from "./views/IntroView";
 import ModalConfig from "./components/ModalConfig";
@@ -145,10 +145,6 @@ class App extends Component {
     const {game, winner, openWinner} = this.state;
     const { status, squares, steps } = game;
 
-    //todo: criar as views (IntroView e GameView).
-
-    console.log(status);
-
     return (
       <Fragment>
         <ModalWinner
@@ -163,18 +159,17 @@ class App extends Component {
           onStart={this.handleStart}
           onContinue={this.handleContinue}
         />
-        {status === "start" && (
-          <Game
-            game={game}
-            winner={winner}
-            squares={squares}
-            steps={steps}
-            onExit={this.handleExit}
-            onSaveAndExit={this.handleSaveAndExit}
-            onReset={this.handleReset}
-            onClickSquare={this.handleClickSquare}
-          />
-        )}
+        <GameView
+          status={status}
+          winner={winner}
+          game={game}
+          squares={squares}
+          steps={steps}
+          onExit={this.handleExit}
+          onSaveAndExit={this.handleSaveAndExit}
+          onReset={this.handleReset}
+          onClickSquare={this.handleClickSquare}
+        />
       </Fragment>
     );
   }

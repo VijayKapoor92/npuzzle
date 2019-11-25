@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/npuzzles/static/css/main.57d3f6e6.chunk.css",
+    "main.js": "/npuzzles/static/js/main.18db7647.chunk.js",
+    "main.js.map": "/npuzzles/static/js/main.18db7647.chunk.js.map",
+    "runtime-main.js": "/npuzzles/static/js/runtime-main.b26d06fc.js",
+    "runtime-main.js.map": "/npuzzles/static/js/runtime-main.b26d06fc.js.map",
+    "static/js/2.20f73be0.chunk.js": "/npuzzles/static/js/2.20f73be0.chunk.js",
+    "static/js/2.20f73be0.chunk.js.map": "/npuzzles/static/js/2.20f73be0.chunk.js.map",
+    "index.html": "/npuzzles/index.html",
+    "precache-manifest.f2f2393697eb89bebe921fadb7c651f4.js": "/npuzzles/precache-manifest.f2f2393697eb89bebe921fadb7c651f4.js",
+    "service-worker.js": "/npuzzles/service-worker.js",
+    "static/css/main.57d3f6e6.chunk.css.map": "/npuzzles/static/css/main.57d3f6e6.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b26d06fc.js",
+    "static/js/2.20f73be0.chunk.js",
+    "static/css/main.57d3f6e6.chunk.css",
+    "static/js/main.18db7647.chunk.js"
+  ]
+}

@@ -1,8 +1,4 @@
-const
-  STORAGE_DATABASE = "game",
-  DAO_STATUS_CONNECTED_OK = 1,
-  DAO_STATUS_CONNECTED_ERROR = -1,
-  DAO_ID_SIZE = 8;
+import {STORAGE_DATABASE, STORAGE_CONFIG_DATABASE, PUZZLE_MODE_3X3} from "../utils/constants";
 
 export
   const Storage = {

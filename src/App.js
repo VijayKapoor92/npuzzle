@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from "react";
 import Game from "./components/Game";
-import WinnerContainer from "./components/WinnerContainer";
+import ModalWinner from "./components/ModalWinner";
+import IntroView from "./views/IntroView";
+import ModalConfig from "./components/ModalConfig";
 
 import SettingsIcon from "react-icons/lib/fa/cog";
-import CloseIcon from "react-icons/lib/fa/close";
-import TrophyIcon from "react-icons/lib/fa/trophy";
 
-import { PUZZLE_MODE_EASY } from "./utils/constants";
+import { PUZZLE_MODE_3X3 } from "./utils/constants";
 import { Puzzles, Answers } from "./utils/puzzles";
 import {getPositionZero, shuffle} from "./utils";
-import { Storage } from "./dao";
+import {Storage} from "./dao";
 
 class App extends Component {
   constructor(props) {
@@ -21,10 +21,9 @@ class App extends Component {
         steps: 0,
         status: "stop"
       },
-      squares: shuffle(Puzzles[PUZZLE_MODE_EASY]),
+      squares: [],
       steps: 0,
       status: "stop",
-      isConfigOpen: false,
       isWinner: false,
       openWinner: false
     };
@@ -33,6 +32,7 @@ class App extends Component {
   componentDidMount() {
     Storage.connect();
     const puzzle = Storage.get();
+
     if (puzzle.length && puzzle.filter(p => p.status === "saved").length)
       this.setState(state => ({
         ...state,
@@ -46,9 +46,9 @@ class App extends Component {
   }
 
   handleStart = () => {
-    const squares = shuffle(Puzzles[PUZZLE_MODE_EASY]);
+    const squares = shuffle(Puzzles[PUZZLE_MODE_3X3]);
     const id = Storage.getLastId() + 1;
-    console.log(id);
+
     Storage.insert({id, status: "start", puzzle: squares, steps: 0});
     this.setState({game: {status: "start", squares: squares, steps: 0, id}});
   };
@@ -72,8 +72,12 @@ class App extends Component {
 
   handleReset = () => {
     this.setState(state => ({
-      squares: shuffle(Puzzles[PUZZLE_MODE_EASY]),
-      steps: 0
+      ...state,
+      game: {
+        ...state.game,
+        squares: shuffle(Puzzles[PUZZLE_MODE_3X3]),
+        steps: 0
+      }
     }));
   };
 
@@ -90,7 +94,7 @@ class App extends Component {
 
     for(let i = 0;i < squares.length;i++)
       for(let j = 0;j < squares[i].length; j++)
-        if (squares[i][j] === Answers[PUZZLE_MODE_EASY][i][j])
+        if (squares[i][j] === Answers[PUZZLE_MODE_3X3][i][j])
           counter++;
 
     if (counter < le)
@@ -137,58 +141,29 @@ class App extends Component {
   handleCloseWinner = () =>
     this.setState({openWinner: false});
 
-  handleOpenConfig = () =>
-    this.setState({isConfigOpen: true});
-
-  renderFirstPage = (squares, status) =>
-    <div className="first-page">
-      <div className="first-page__title">N-PUZZLE</div>
-      <div className="first-page__subtitle">Venha se divertir</div>
-      <div className="first-page__action-container">
-        {status === "saved" ? (
-          <Fragment>
-            <button className="btn-start" onClick={() => this.handleContinue(squares)}>Continuar jogo salvo</button>
-            <button className="btn-start" onClick={() => this.handleStart(squares)}>Novo jogo</button>
-          </Fragment>
-        ) : (
-          <button className="btn-start" onClick={() => this.handleStart(squares)}>Novo jogo</button>
-        )}
-        {/*<button className="btn-config" onClick={this.handleOpenConfig}>
-          <SettingsIcon/>
-        </button>*/}
-      </div>
-    </div>;
-
-  renderConfig = () =>
-    <div>
-      <div>Configurações</div>
-      <div>
-        <label>Nível:</label>
-        <select>
-          <option>Fácil</option>
-          <option>Médio</option>
-          <option>Difícil</option>
-        </select>
-      </div>
-    </div>;
-
   render() {
-    const {game, isConfigOpen, winner, openWinner} = this.state;
+    const {game, winner, openWinner} = this.state;
     const { status, squares, steps } = game;
 
-    //todo: logica para salvar o jogo e sair.
     //todo: criar as views (IntroView e GameView).
-    //todo: logica para configuracoes.
+
+    console.log(status);
 
     return (
       <Fragment>
-        {isConfigOpen && this.renderConfig()}
-        <WinnerContainer
+        <ModalWinner
           open={openWinner}
+          winner={winner}
           steps={steps}
           onClose={this.handleCloseWinner}
         />
-        {status === "start" ? (
+        <IntroView
+          squares={squares}
+          status={status}
+          onStart={this.handleStart}
+          onContinue={this.handleContinue}
+        />
+        {status === "start" && (
           <Game
             game={game}
             winner={winner}
@@ -199,8 +174,6 @@ class App extends Component {
             onReset={this.handleReset}
             onClickSquare={this.handleClickSquare}
           />
-        ) : (
-          this.renderFirstPage(squares, status)
         )}
       </Fragment>
     );

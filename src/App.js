@@ -122,7 +122,7 @@ class App extends Component {
 
     const winner = this.validateWinner(squares);
 
-    if (!winner)
+    if (winner)
       StorageScores.insert({score: this.state.game.steps + 1});
 
     this.setState(state => ({
@@ -158,8 +158,6 @@ class App extends Component {
   render() {
     const {game, winner, openWinner, scores, openScores} = this.state;
     const { status, squares, steps } = game;
-
-    console.log(scores);
 
     return (
       <Fragment>

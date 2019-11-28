@@ -2,8 +2,7 @@ import React from "react";
 import Modal from "../Modal";
 import {PUZZLE_MODE_3X3, PUZZLE_MODE_4X4, PUZZLE_MODE_5X5} from "../../utils/constants";
 
-const ModalConfig = ({open, mode, onChange, onClose}) => {
-  return (
+const ModalConfig = ({open, mode, onChange, onClose}) =>
     <Modal
       open={open}
       title="Configurações"
@@ -17,8 +16,6 @@ const ModalConfig = ({open, mode, onChange, onClose}) => {
           <option value={PUZZLE_MODE_5X5}>{PUZZLE_MODE_5X5}</option>
         </select>
       </div>
-    </Modal>
-  );
-};
+    </Modal>;
 
 export default ModalConfig;

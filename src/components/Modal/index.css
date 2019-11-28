@@ -24,7 +24,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    transition: all .3s ease-in-out;
+    transition: all 150ms linear;
     transform: scale(0);
 }
 .modal-content.scores {

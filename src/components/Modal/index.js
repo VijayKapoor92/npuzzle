@@ -3,10 +3,10 @@ import CloseIcon from "react-icons/lib/fa/close";
 import TrophyIcon from "react-icons/lib/fa/trophy";
 import "./index.css";
 
-const Modal = ({open, title, children, winner, onClose}) => {
+const Modal = ({open, scores, title, children, winner, onClose}) => {
   return (
     <div className={`modal ${open ? "show" : ""}`}>
-      <div className={`modal-content ${!winner ? "modal-config" : ""}`}>
+      <div className={`modal-content ${scores ? "scores" : ""} ${!winner && !scores ? "modal-config" : ""}`}>
         <div className="modal-dismiss" onClick={() => onClose()}>
           <CloseIcon/>
         </div>

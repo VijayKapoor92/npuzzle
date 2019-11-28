@@ -1,4 +1,4 @@
-import {STORAGE_DATABASE, STORAGE_CONFIG_DATABASE, PUZZLE_MODE_3X3} from "../utils/constants";
+import {STORAGE_DATABASE, STORAGE_SCORES_DATABASE} from "../utils/constants";
 
 export
   const Storage = {
@@ -50,7 +50,7 @@ export
     get: () => Data.pull(localStorage.getItem(STORAGE_DATABASE))
   },
   StorageScores = {
-    db: localStorage.getItem("scores"),
+    db: localStorage.getItem(STORAGE_SCORES_DATABASE),
     connect: () => {
       if (!("localStorage" in window)) {
         alert("Erro ao conectar!");
@@ -63,24 +63,18 @@ export
       if (StorageScores.db && StorageScores.db.length)
         return;
 
-      localStorage.setItem("scores", Data.push([]));
+      localStorage.setItem(STORAGE_SCORES_DATABASE, Data.push([]));
     },
     insert: score => {
       let g = StorageScores.get();
-      // if (g.filter(gg => gg.id === game.id).length)
-      //   return;
-
-      console.log(score);
 
       g.push(score);
-      localStorage.setItem("scores", Data.push(g));
+      localStorage.setItem(STORAGE_SCORES_DATABASE, Data.push(g));
     },
-    get: () => Data.pull(localStorage.getItem("scores"))
+    get: () => Data.pull(localStorage.getItem(STORAGE_SCORES_DATABASE))
   };
 
 const Data = {
   push: (data) => JSON.stringify(data),
-  pull: (data) => JSON.parse(data),
-  content: [],
-  filterById: id => Storage.get().filter(s => s.id === Storage.getId())
+  pull: (data) => JSON.parse(data)
 };

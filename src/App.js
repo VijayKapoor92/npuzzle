@@ -3,13 +3,14 @@ import GameView from "./views/GameView";
 import ModalWinner from "./components/ModalWinner";
 import IntroView from "./views/IntroView";
 import ModalConfig from "./components/ModalConfig";
+import ModalScores from "./components/ModalScores";
 
 import SettingsIcon from "react-icons/lib/fa/cog";
 
 import { PUZZLE_MODE_3X3 } from "./utils/constants";
 import { Puzzles, Answers } from "./utils/puzzles";
 import {getPositionZero, shuffle} from "./utils";
-import {Storage} from "./dao";
+import {Storage, StorageScores} from "./dao";
 
 class App extends Component {
   constructor(props) {
@@ -21,8 +22,8 @@ class App extends Component {
         steps: 0,
         status: "stop"
       },
-      squares: [],
-      steps: 0,
+      scores: [],
+      openScores: false,
       status: "stop",
       isWinner: false,
       openWinner: false
@@ -32,6 +33,10 @@ class App extends Component {
   componentDidMount() {
     Storage.connect();
     const puzzle = Storage.get();
+    const scores = StorageScores.get();
+
+    if (scores.length)
+      this.setState({scores});
 
     if (puzzle.length && puzzle.filter(p => p.status === "saved").length)
       this.setState(state => ({
@@ -117,6 +122,9 @@ class App extends Component {
 
     const winner = this.validateWinner(squares);
 
+    if (!winner)
+      StorageScores.insert({score: this.state.game.steps + 1});
+
     this.setState(state => ({
       ...state,
       game: {
@@ -141,12 +149,25 @@ class App extends Component {
   handleCloseWinner = () =>
     this.setState({openWinner: false});
 
+  handleOpenScores = () =>
+    this.setState({openScores: true});
+
+  handleCloseScores = () =>
+    this.setState({openScores: false});
+
   render() {
-    const {game, winner, openWinner} = this.state;
+    const {game, winner, openWinner, scores, openScores} = this.state;
     const { status, squares, steps } = game;
+
+    console.log(scores);
 
     return (
       <Fragment>
+        <ModalScores
+          open={openScores}
+          scores={scores}
+          onClose={this.handleCloseScores}
+        />
         <ModalWinner
           open={openWinner}
           winner={winner}
@@ -158,6 +179,7 @@ class App extends Component {
           status={status}
           onStart={this.handleStart}
           onContinue={this.handleContinue}
+          onOpenScores={this.handleOpenScores}
         />
         <GameView
           status={status}

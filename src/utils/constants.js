@@ -4,5 +4,5 @@ export const
   PUZZLE_MODE_5X5 = "5x5",
 
   STORAGE_DATABASE = "game",
-  STORAGE_CONFIG_DATABASE = "config"
+  STORAGE_SCORES_DATABASE = "scores"
 ;

@@ -11,6 +11,7 @@ export
       }
 
       Storage.createDB();
+      StorageScores.createDB();
     },
     getLastId: () => Storage.get().length,
     createDB: () => {
@@ -47,6 +48,34 @@ export
       localStorage.setItem(STORAGE_DATABASE, Data.push(game));
     },
     get: () => Data.pull(localStorage.getItem(STORAGE_DATABASE))
+  },
+  StorageScores = {
+    db: localStorage.getItem("scores"),
+    connect: () => {
+      if (!("localStorage" in window)) {
+        alert("Erro ao conectar!");
+        return;
+      }
+
+      StorageScores.createDB();
+    },
+    createDB: () => {
+      if (StorageScores.db && StorageScores.db.length)
+        return;
+
+      localStorage.setItem("scores", Data.push([]));
+    },
+    insert: score => {
+      let g = StorageScores.get();
+      // if (g.filter(gg => gg.id === game.id).length)
+      //   return;
+
+      console.log(score);
+
+      g.push(score);
+      localStorage.setItem("scores", Data.push(g));
+    },
+    get: () => Data.pull(localStorage.getItem("scores"))
   };
 
 const Data = {
